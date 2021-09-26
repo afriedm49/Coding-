@@ -1,0 +1,244 @@
+class Character:
+    def __init__ (self, health, speed, damage, name, full_health):
+        self.health = health
+        self.speed = speed
+        self.damage = damage
+        self.name = name
+        self.full_health = full_health
+        
+giant = Character(10, 3, 7, "Giant", 10)
+assassin = Character(5, 9, 6, "Assassin", 5)
+mage = Character(7, 5, 8, "Mage", 7)
+
+class Lock:
+    def __init__ (self, opened, treasure, treasureowned):
+        self.opened = opened
+        self.treasure = treasure
+        self.treasureowned = treasureowned
+    def unlock(self):
+        opened = True
+        print("You open the lock succesfully and find " + self.treasure)
+        treasureowned = True
+        
+four_num_lock = Lock(False, "a magestic broadsword", False)
+medicine_cabinet = Lock(False, "2 small healing potions, which can heal by 1 each", False)
+
+from time import sleep
+import sys
+
+def delay_print(s):
+    for c in s:
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        sleep(0.1)
+
+def heal(amount):
+    if player.health < player.full_health:
+        if player.health + amount >= player.full_health:
+            player.health = player.full_health
+            print("Your health is now " + str(player.health)); sleep(2)
+        else:
+            player.health += amount
+            print("Your health is now " + str(player.health)); sleep(2)
+    else:
+        print("You cannot heal at this time")
+        
+heal_words = ['heal', 'use potion', 'consume potion', 'potion', 'use small potion']
+
+print("Choose your character:")
+print("Press 1 for giant, 2 for assassin, and 3 for mage.")
+
+while True:
+    choice = input()
+    if choice in ['1', '2', '3']:
+        break
+    else:
+        print("Type a value between 1 and 3.")
+if choice == '1':
+    player = giant
+if choice == '2':
+    player = assassin
+if choice == '3':
+    player = mage
+
+giant.description = "Since you are a giant, you have much health, but move very slowly."
+assassin.description = "Since you are an assassin, you move quickly but have low health."
+mage.description = "Since you are a mage, you do high damage, but have an average amount of health and speed."
+    
+print("You have chosen: " + str(player.name)) ; sleep(2)
+print("Your health is " + str(player.health) + ", your speed is " + str(player.speed) + ", and your damage is " + str(player.damage))
+sleep(3)
+print("")
+print(player.description); sleep(2)
+print("")
+print("Your adventure begins at the foot of a small cabin, with only an empty satchel.") ; sleep(2)
+
+while True:
+    enterhouse = input("Would you like to enter the cabin? (Y = yes), (N = no)")
+    if enterhouse == 'Y':
+        break
+    elif enterhouse == 'N':
+        print("What are you gonna do, sit there?")
+        sleep(3)
+
+#unlocked objects to find:
+silver_key = False
+flashlight = False
+_map = False
+
+#window or front door choice
+while True:
+    entertype = input("Would you like to enter through the front door, or the window?")
+    if entertype == 'window':
+        print("You shatter the window with your elbow, but a shard of glass cuts your arm."); sleep(2)
+        player.health -= 1
+        print("Your health is now " + str(player.health)); sleep(2)
+        break
+    elif entertype == 'front door':
+        print("You open the door to find a small silver key lying next to the doorframe."); sleep(2)
+        print("You pick it up and place it in your bag.")
+        silver_key = True
+        break
+    else:
+        print("Please enter either 'window' or 'front door.'")
+print("")
+print("You walk over to a table, and you notice a note on top: "); sleep(3)
+delay_print('In order to crack the lock, you must first break out of the CAGE')
+print("")
+print("You look up to see a mirror on the wall. To the right of you is a painting of an old man, black hair and a crooked smile."); sleep(3)
+print("To your left is a small cabinet with three drawers. There is a spiral staircase leading up to a dark room ")
+
+#locations
+livingroom = True
+passageway = False
+attic = False
+
+#while in living room
+
+while livingroom:
+    living_room_choice = input()
+    
+#move painting to go in passage
+    while True:
+        if living_room_choice in ['move painting', 'painting', 'slide painting']:
+            print("As you slide the painting over, you notice a passageway opening up next to you."); sleep(2)
+            passage_choice = input("Would you like to enter?")
+            if passage_choice == 'Y':
+                livingroom = False
+                passageway = True
+                print("You enter the passageway, and the door behind you slides back and locks."); sleep(2)
+                break
+            if passage_choice == 'N':
+                print("You return back to the living room, too scared to enter the secret passage. The door slides back closed."); sleep(2)
+                break
+            else:
+                print("Please enter 'Y' or 'N'. ")
+    
+#go back to front door
+        elif living_room_choice in ['front door', 'go to front door']:
+            if silver_key == True:
+                print("You walk over to the front door and see nothing of interest."); sleep(2)
+                break
+            elif silver_key == False:
+                print("You walk over to the front door to find a small silver key lying next to the doorframe."); sleep(2)
+                print("You pick it up and place it in your bag.")
+                silver_key = True
+                break
+        
+#opening top drawer
+        elif living_room_choice in ['top drawer', 'open top drawer', 'first drawer', 'open first drawer', 'drawer 1', 'open drawer 1']:
+            if flashlight == False:
+                print("You open the top drawer and find an flashlight, placing it in your bag."); sleep(2)
+                flashlight = True
+                break
+            else:
+                print("The top drawer is empty."); sleep(2)
+                break
+
+#opening middle drawer
+        elif living_room_choice in ['middle drawer', 'open middle drawer', 'second drawer', 'open second drawer', 'drawer 2', 'open drawer 2']:
+            print("The middle drawer is empty."); sleep(2)
+            break
+    
+#opening bottom drawer
+        elif living_room_choice in ['bottom drawer', 'open bottom drawer', 'third drawer', 'open third drawer', 'drawer 3', 'open drawer 3']:    
+            if _map == False:
+                print("The bottom drawer contains a map, showing a place you never have seen before. You place it in your bag, unable to read or follow it yet"); sleep(2)
+                _map = True
+                break
+            else:
+                print("The bottom drawer is empty"); sleep(2)
+                break
+                
+#moving mirror with four number lock
+        elif living_room_choice in ['move mirror', 'slide mirror']:
+            if four_num_lock.opened == False:
+                print("You slide over the mirror to find a safe with a 4 number lock"); sleep(2)
+                lock1 = input("Type in the combination below:"); sleep(1)
+                if lock1 == "3175":
+                    four_num_lock.unlock()
+                    break
+                else:
+                    print("Sorry, that password is incorrect."); sleep(1)
+                    break
+            else:
+                print("You already opened this lock.")
+                break
+                
+#looking in mirror(useless)
+        elif living_room_choice in ['look in mirror', 'look at mirror', 'look at reflection']:
+            print("You look at yourself and see only the " + str(player.name) + " you are."); sleep(2)
+            break
+        
+#going upstairs to attic
+        elif living_room_choice in ['go upstairs', 'staircase', 'upstairs', 'stairs', 'walk upstairs']:
+            if flashlight == True:
+                print("With the flashlight in hand, you head upstairs, and find a lightswitch at the top of the stairs."); sleep(2)
+                print("You flip it on, and see dust-filled attic."); sleep(2)
+                print("The only thing visible is a large brown cabinet with a key lock on the front.")
+                print("")
+                livingroom = False
+                attic = True
+                break
+            else:
+                print("It's too dark to see anything. You head back downstairs."); sleep(2)
+                break
+                
+#errors or incorrect inputs        
+        else:
+            print("Try something else."); sleep(1)
+            break
+    #while in attic
+while attic:
+    attic_choice = input()
+    
+#opening medicine cabinet
+    while True:
+        if attic_choice in ['open cabinet', 'unlock cabinet']:
+            if medicine_cabinet.opened == False:
+                if silver_key == True:
+                    medicine_cabinet.unlock()
+                    break
+                if silver_key == False:
+                    print("The cabinet is locked, and you don't have a key to open it.")
+                    break
+            else:
+                print("You already opened this lock.")
+                break
+                
+#going back downstairs
+        elif attic_choice in ['go downstairs', 'go back down', 'go down', 'go back downstairs', 'downstairs', 'down']:
+            attic = False
+            livingroom = True
+            print("You head back downstairs.")
+            break
+        elif attic_choice in heal_words:
+            if medicine_cabinet.opened == True:
+                heal(1)
+                break
+            else:
+                print("You don't have anything to heal with."); sleep(2)
+                break
+        else:
+            print("Try something else."); sleep(1)
+            break
