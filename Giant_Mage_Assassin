@@ -30,7 +30,7 @@ def delay_print(s):
     for c in s:
         sys.stdout.write(c)
         sys.stdout.flush()
-        sleep(0.1)
+        sleep(0.05)
 
 def heal(amount):
     if player.health < player.full_health:
@@ -203,6 +203,7 @@ while livingroom:
             else:
                 print("It's too dark to see anything. You head back downstairs."); sleep(2)
                 break
+            break
                 
 #errors or incorrect inputs        
         else:
