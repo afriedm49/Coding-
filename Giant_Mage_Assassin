@@ -1,3 +1,5 @@
+
+# Online Python - IDE, Editor, Compiler, Interpreter
 class Character:
     def __init__ (self, health, speed, damage, name, full_health):
         self.health = health
@@ -19,9 +21,11 @@ class Lock:
         opened = True
         print("You open the lock succesfully and find " + self.treasure)
         treasureowned = True
+        inventory.append(str(self.treasure))
         
 four_num_lock = Lock(False, "a magestic broadsword", False)
-medicine_cabinet = Lock(False, "2 small healing potions, which can heal by 1 each", False)
+medicine_cabinet = Lock(False, "2 small healing potions", False)
+inventory = []
 
 from time import sleep
 import sys
@@ -98,6 +102,7 @@ while True:
         print("You open the door to find a small silver key lying next to the doorframe."); sleep(2)
         print("You pick it up and place it in your bag.")
         silver_key = True
+        inventory.append("silver key")
         break
     else:
         print("Please enter either 'window' or 'front door.'")
@@ -133,6 +138,11 @@ while livingroom:
                 break
             else:
                 print("Please enter 'Y' or 'N'. ")
+                
+#check inventory
+        if living_room_choice in ['inventory', 'check inventory', 'open inventory', 'i']:
+            print("You have" + str(inventory))
+            break
     
 #go back to front door
         elif living_room_choice in ['front door', 'go to front door']:
@@ -150,6 +160,8 @@ while livingroom:
             if flashlight == False:
                 print("You open the top drawer and find an flashlight, placing it in your bag."); sleep(2)
                 flashlight = True
+                inventory.append("flashlight")
+                
                 break
             else:
                 print("The top drawer is empty."); sleep(2)
@@ -165,6 +177,7 @@ while livingroom:
             if _map == False:
                 print("The bottom drawer contains a map, showing a place you never have seen before. You place it in your bag, unable to read or follow it yet"); sleep(2)
                 _map = True
+                inventory.append("map")
                 break
             else:
                 print("The bottom drawer is empty"); sleep(2)
@@ -213,8 +226,15 @@ while livingroom:
 while attic:
     attic_choice = input()
     
-#opening medicine cabinet
+
+
     while True:
+#check inventory      
+        if attic_choice in ['inventory', 'check inventory', 'open inventory', 'i']:
+            print("You have" + str(inventory))
+            break
+        
+#opening medicine cabinet        
         if attic_choice in ['open cabinet', 'unlock cabinet']:
             if medicine_cabinet.opened == False:
                 if silver_key == True:
@@ -228,13 +248,14 @@ while attic:
                 break
                 
 #going back downstairs
-        elif attic_choice in ['go downstairs', 'go back down', 'go down', 'go back downstairs', 'downstairs', 'down']:
+        if attic_choice in ['go downstairs', 'go back down', 'go down', 'go back downstairs', 'downstairs', 'down']:
             attic = False
             livingroom = True
             print("You head back downstairs.")
             break
-        elif attic_choice in heal_words:
-            if medicine_cabinet.opened == True:
+            
+        if attic_choice in heal_words:
+            if medicine_cabinet.treasureowned == True:
                 heal(1)
                 break
             else:
@@ -243,3 +264,4 @@ while attic:
         else:
             print("Try something else."); sleep(1)
             break
+        break
