@@ -1,0 +1,28 @@
+import java.util.*;
+public class Mancala {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int[] board = new int[14];
+        for (int i = 0; i < 12; i++)
+            board[i] = 4;
+        board[12] = 0;
+        board[13] = 0;
+       
+    
+            for (int i = 0; i < 6; i++)
+            System.out.print(board[i] + " ");
+            
+            System.out.println();
+            
+            System.out.println(board[12] + "            " + board[13]);
+            
+            for (int i = 11; i >= 6; i--)
+            System.out.print(board[i] + " ");
+            
+            
+            
+        
+        
+        
+    }
+}
